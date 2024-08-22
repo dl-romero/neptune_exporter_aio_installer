@@ -12,6 +12,7 @@ Before getting started your going to need collect some information. Youll be ask
  - All Apex IDs of your Apex devices.
     - Once logged into Fusion. Go to https://apexfusion.com/apex to show all your Apex devices.
     - Click on the first Apex device. You will notice the URL will change. Copy everything after the last slash. This is the Apex ID. Repeat this process if you have multiple Apex devices.
+
 [Neptune Apex]
  - Your Apex IP Adress. Easiest way of getting this is to use the Fusion App.
     - In the App. Click on the 3 gears icon.
