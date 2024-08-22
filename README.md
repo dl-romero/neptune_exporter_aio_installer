@@ -37,7 +37,7 @@ cd /tmp/neptune_exporter_vX
 
 ### Manage Configurations:
 
-#### Fusion_:
+#### Fusion:
     Configuration File: /etc/neptune_exporter/configuration/fusion.yml
     You can add, remove, modify the apex_systems as long as its in Yaml format.
     If you add, remove, modify any of the apex_systems (outside of the username/password), you most likely need to update the prometheus.yml file as well.
