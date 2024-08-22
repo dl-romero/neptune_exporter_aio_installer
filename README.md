@@ -3,6 +3,8 @@ Export Apex / Fusion monitoring metrics for Prometheus.
 
 This has been exporter has been tested on CentOS 7 and Rocky 9, but should work on other distros.<br>
 
+Python Version: Python 3.9.18
+
 Download & Unpack Instructions:
 ```
 cd /tmp
@@ -19,11 +21,11 @@ cd /tmp/neptune_exporter_vX
 Prometheus Installation Instructions:
 ```
 cd /tmp/neptune_exporter_vX
-./install_prometheus.sh
+sudo ./install_prometheus.sh
 ```
 
 Grafana Installation Instructions:
 ```
 cd /tmp/neptune_exporter_vX
-./install_grafana.sh
+sudo ./install_grafana.sh
 ```
