@@ -34,21 +34,23 @@ Neptune Exporter Installation Instructions:
 cd /tmp/neptune_exporter_vX
 ./install_neptune_exporter.sh
 ```
-
+<BR>
 Manage Configurations:
+
     _Fusion_:
         Configuration File: /etc/neptune_exporter/configuration/fusion.yml
+
         ```
         sudo vi /etc/neptune_exporter/configuration/fusion.yml
         ```
-
-        
+ 
     _Apex_:
-        Configuration File: /etc/neptune_exporter/configuration/apex.yml<br>
+        Configuration File: /etc/neptune_exporter/configuration/apex.yml
+        
         ```
         sudo vi /etc/neptune_exporter/configuration/apex.yml
         ```
-        
+
         The default file looks like this. You can add, remove, modify the apex_auths as long as its in Yaml format.
 
         ```
@@ -65,7 +67,7 @@ Manage Configurations:
 
         If you add, remove, modify any of the apex_auths (outside of the username/password), you most likely need to update the prometheus.yml file as well.
 
-_Other App Install Scripts_
+### _Other App Install Scripts_
 Prometheus
 This installer script should only be used for fresh installations of Prometheus.
 It will generate a custom prometheus.yml file that Prometheus needs to collect data from Fusion and your Apex.
