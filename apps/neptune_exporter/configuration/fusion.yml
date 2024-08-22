@@ -1,0 +1,6 @@
+
+fusion:
+  apex_systems:
+    <FUSION_ID>:
+      username: <FUSION_USERNAME>
+      password: <FUSION_PASSWORD>
