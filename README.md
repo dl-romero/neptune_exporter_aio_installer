@@ -37,35 +37,13 @@ cd /tmp/neptune_exporter_vX
 
 Manage Configurations:
 
-    _Fusion_:
-        Configuration File: /etc/neptune_exporter/configuration/fusion.yml
-
-        ```
-        sudo vi /etc/neptune_exporter/configuration/fusion.yml
-        ```
+Fusion_:
+    Configuration File: /etc/neptune_exporter/configuration/fusion.yml
  
-    _Apex_:
-        Configuration File: /etc/neptune_exporter/configuration/apex.yml
-
-        ```
-        sudo vi /etc/neptune_exporter/configuration/apex.yml
-        ```
-
-        The default file looks like this. You can add, remove, modify the apex_auths as long as its in Yaml format.
-
-        ```
-        apex_auths:
-          default:
-            username: admin
-            password: 1234
-            # Add as many authentication modules as you would like below these lines. 
-            # Helpful if you have multiple Apex with differrent login credentials.
-          custom:
-            username: ""
-            password: ""
-        ```
-
-        If you add, remove, modify any of the apex_auths (outside of the username/password), you most likely need to update the prometheus.yml file as well.
+Apex:
+    Configuration File: /etc/neptune_exporter/configuration/apex.yml
+    You can add, remove, modify the apex_auths as long as its in Yaml format.
+    If you add, remove, modify any of the apex_auths (outside of the username/password), you most likely need to update the prometheus.yml file as well.
 
 ### _Other App Install Scripts_
 Prometheus
