@@ -38,24 +38,24 @@ cd /tmp/neptune_exporter_vX
 ### Manage Configurations:
 
 #### Fusion:
-    Configuration File: /etc/neptune_exporter/configuration/fusion.yml
-    You can add, remove, modify the apex_systems as long as its in Yaml format.
-    If you add, remove, modify any of the apex_systems (outside of the username/password), you most likely need to update the prometheus.yml file as well.
+Configuration File: /etc/neptune_exporter/configuration/fusion.yml
+You can add, remove, modify the apex_systems as long as its in Yaml format.
+If you add, remove, modify any of the apex_systems (outside of the username/password), you most likely need to update the prometheus.yml file as well.
 
-    Sample: [fusion.yml](https://github.com/dl-romero/neptune_exporter/blob/main/apps/neptune_exporter/configuration/fusion.yml) 
+Sample: [fusion.yml](https://github.com/dl-romero/neptune_exporter/blob/main/apps/neptune_exporter/configuration/fusion.yml) 
  
 #### Apex:
-    Configuration File: /etc/neptune_exporter/configuration/apex.yml
-    You can add, remove, modify the apex_auths as long as its in Yaml format.
-    If you add, remove, modify any of the apex_auths (outside of the username/password), you most likely need to update the prometheus.yml file as well.
+Configuration File: /etc/neptune_exporter/configuration/apex.yml
+You can add, remove, modify the apex_auths as long as its in Yaml format.
+If you add, remove, modify any of the apex_auths (outside of the username/password), you most likely need to update the prometheus.yml file as well.
 
-    Sample: [apex.yml](https://github.com/dl-romero/neptune_exporter/blob/main/apps/neptune_exporter/configuration/apex.yml) 
+Sample: [apex.yml](https://github.com/dl-romero/neptune_exporter/blob/main/apps/neptune_exporter/configuration/apex.yml) 
 
 #### Prometheus:
-    Configuration File: /etc/prometheus/prometheus.yml
-    To scrape metrics from your Apex(s) directly and or for from Fusion you will need to add the job into your Prometheus Scrape Configs in the prometheus.yml.
+Configuration File: /etc/prometheus/prometheus.yml
+To scrape metrics from your Apex(s) directly and or for from Fusion you will need to add the job into your Prometheus Scrape Configs in the prometheus.yml.
 
-    Sample: [prometheus.yml](https://github.com/dl-romero/neptune_exporter/blob/main/apps/prometheus/prometheus.yml) 
+Sample: [prometheus.yml](https://github.com/dl-romero/neptune_exporter/blob/main/apps/prometheus/prometheus.yml) 
 
 ### _Other App Install Scripts_
 #### Prometheus
