@@ -44,13 +44,13 @@ Manage Configurations:
 
         
     _Apex_:
-        Configuration File: /etc/neptune_exporter/configuration/apex.yml
-        
+        Configuration File: /etc/neptune_exporter/configuration/apex.yml<br>
         ```
         sudo vi /etc/neptune_exporter/configuration/apex.yml
         ```
-
+        
         The default file looks like this. You can add, remove, modify the apex_auths as long as its in Yaml format.
+
         ```
         apex_auths:
           default:
