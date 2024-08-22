@@ -45,6 +45,7 @@ Manage Configurations:
         
     _Apex_:
         Configuration File: /etc/neptune_exporter/configuration/apex.yml
+        
         ```
         sudo vi /etc/neptune_exporter/configuration/apex.yml
         ```
