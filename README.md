@@ -1,17 +1,17 @@
 # Neptune Exporter
 ### Export Apex / Fusion monitoring metrics for Prometheus.
 
-This has been exporter has been tested on CentOS 7 and Rocky 9.<br>
+This exporter has been tested on CentOS 7 and Rocky 9.<br>
 
 Python Versions Verified: Python 3.9.18
 
-Before getting started you should collect some information and have it ready. You'll be asked for it later.
+Before getting started you should collect some information and have it ready. You'll be asked for it later if using the installer scripts.
 
 #### _Neptune Fusion_
- - Your username & password for Fusion. Verify they work by logging into https://apexfusion.com/login
+ - Your username & password for Fusion. Verify your credentials work by logging into https://apexfusion.com/login
  - All Apex IDs of your Apex devices.
     - Once logged into Fusion. Go to https://apexfusion.com/apex to show all your Apex devices.
-    - Click on the first Apex device. You will notice the URL will change. Copy everything after the last slash. This is the Apex ID. Repeat this process if you have multiple Apex devices.
+    - Click on the first Apex device. You will notice the URL will change. Copy everything after the last slash. This is the Apex ID. Repeat this process if you have multiple Apex devices. Example if the url becomes apexfusion.com/apex/<u>etn990l983hcigb9j39sfjtjyhvf9efc</u> then your Apex ID of that device is "etn990l983hcigb9j39sfjtjyhvf9efc"
 
 #### _Neptune Apex_
  - Your Apex IP Adress. Easiest way of getting this is to use the Fusion App.
@@ -57,6 +57,7 @@ To scrape metrics from your Apex(s) directly and or for from Fusion you will nee
 Sample: [prometheus.yml](https://github.com/dl-romero/neptune_exporter/blob/main/apps/prometheus/prometheus.yml) 
 
 ### _Other App Install Scripts_
+NOTE: These scripts were written for those who - 1. Do not have the app installed, 2. Have no familiarity installing and configuring these Apps and just want to get things up and running.<BR>
 #### Prometheus
 This installer script should only be used for fresh installations of Prometheus.
 It will generate a custom prometheus.yml file that Prometheus needs to collect data from Fusion and your Apex.<BR>
