@@ -5,8 +5,8 @@ After=network-online.target
 
 [Service]
 Type=simple
-User=dromero
-ExecStart=/usr/bin/python /home/workspace/neptune_exporter/neptune_exporter.py
+User=<USERNAME>
+ExecStart=/usr/bin/python /etc/neptune_exporter/neptune_exporter.py
 SyslogIdentifier=neptune_exporter
 Restart=always
 RestartSec=3

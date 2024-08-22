@@ -1,4 +1,5 @@
 #!/bin/bash
+cd apps/prometheus
 sudo yum update -y
 sudo yum install wget -y
 wget https://github.com/prometheus/prometheus/releases/download/v2.54.0/prometheus-2.54.0.linux-amd64.tar.gz

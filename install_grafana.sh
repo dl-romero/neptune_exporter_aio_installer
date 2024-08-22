@@ -1,4 +1,5 @@
 #!/bin/bash
+cd apps/grafana
 wget -q -O gpg.key https://rpm.grafana.com/gpg.key
 sudo rpm --import gpg.key
 sudo cp grafana.repo /etc/yum.repos.d/
