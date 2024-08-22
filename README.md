@@ -11,7 +11,7 @@ Before getting started you should collect some information and have it ready. Yo
  - Your username & password for Fusion. Verify your credentials work by logging into https://apexfusion.com/login
  - All Apex IDs of your Apex devices.
     - Once logged into Fusion. Go to https://apexfusion.com/apex to show all your Apex devices.
-    - Click on the first Apex device. You will notice the URL will change. Copy everything after the last slash. This is the Apex ID. Repeat this process if you have multiple Apex devices. Example if the url becomes apexfusion.com/apex/<u>etn990l983hcigb9j39sfjtjyhvf9efc</u> then your Apex ID of that device is "etn990l983hcigb9j39sfjtjyhvf9efc"
+    - Click on the first Apex device. You will notice the URL will change. Copy everything after the last slash. This is the Apex ID. Repeat this process if you have multiple Apex devices. Example if the url becomes https://apexfusion.com/apex/etn990l983hcigb9j39sfjtjyhvf9efc then your Apex ID of that device is "etn990l983hcigb9j39sfjtjyhvf9efc"
 
 #### _Neptune Apex_
  - Your Apex IP Adress. Easiest way of getting this is to use the Fusion App.
