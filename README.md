@@ -57,7 +57,7 @@ To scrape metrics from your Apex(s) directly and or for from Fusion you will nee
 Sample: [prometheus.yml](https://github.com/dl-romero/neptune_exporter/blob/main/apps/prometheus/prometheus.yml) 
 
 ### _Other App Install Scripts_
-NOTE: These scripts were written for those who - 1. Do not have the app installed, 2. Have no familiarity installing and configuring these Apps and just want to get things up and running.<BR>
+NOTE: These scripts were written for those who: 1. Do not have the respective app currently installed, 2. Have no familiarity installing and or configuring these apps and just want to get things up and running.<BR>
 #### Prometheus
 This installer script should only be used for fresh installations of Prometheus.
 It will generate a custom prometheus.yml file that Prometheus needs to collect data from Fusion and your Apex.<BR>
