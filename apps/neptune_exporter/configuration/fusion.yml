@@ -1,5 +1,5 @@
 fusion:
   apex_systems:
-    <FUSION_ID>:
-      username: <FUSION_USERNAME>
-      password: <FUSION_PASSWORD>
+    sample_id:
+      username: sample_user
+      password: sample_password
