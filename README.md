@@ -34,7 +34,7 @@ Neptune Exporter Installation Instructions:
 cd /tmp/neptune_exporter_vX
 ./install_neptune_exporter.sh
 ```
-<BR>
+
 Manage Configurations:
 
     _Fusion_:
@@ -46,7 +46,7 @@ Manage Configurations:
  
     _Apex_:
         Configuration File: /etc/neptune_exporter/configuration/apex.yml
-        
+
         ```
         sudo vi /etc/neptune_exporter/configuration/apex.yml
         ```
