@@ -59,8 +59,8 @@ Sample: [prometheus.yml](https://github.com/dl-romero/neptune_exporter/blob/main
 ### _Other App Install Scripts_
 #### Prometheus
 This installer script should only be used for fresh installations of Prometheus.
-It will generate a custom prometheus.yml file that Prometheus needs to collect data from Fusion and your Apex.
-
+It will generate a custom prometheus.yml file that Prometheus needs to collect data from Fusion and your Apex.<BR>
+<BR>
 Warning: Continue at your own risk. Especially if you have Prometheus installed already.
 Installation Instructions:
 ```
@@ -69,7 +69,8 @@ sudo ./install_prometheus.sh
 ```
 
 #### Grafana Installation Instructions:
-This installer script should only be used for fresh installations of Grafana.
+This installer script should only be used for fresh installations of Grafana.<BR>
+<BR>
 Warning: Continue at your own risk. Especially if you have Grafana installed already.
 ```
 cd /tmp/neptune_exporter_vX
