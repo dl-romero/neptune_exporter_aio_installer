@@ -7,13 +7,13 @@ Python Versions Verified: Python 3.9.18
 
 Before getting started you should collect some information and have it ready. You'll be asked for it later.
 
-_Neptune Fusion_
+#### _Neptune Fusion_
  - Your username & password for Fusion. Verify they work by logging into https://apexfusion.com/login
  - All Apex IDs of your Apex devices.
     - Once logged into Fusion. Go to https://apexfusion.com/apex to show all your Apex devices.
     - Click on the first Apex device. You will notice the URL will change. Copy everything after the last slash. This is the Apex ID. Repeat this process if you have multiple Apex devices.
 
-_Neptune Apex_
+#### _Neptune Apex_
  - Your Apex IP Adress. Easiest way of getting this is to use the Fusion App.
     - In the App. Click on the 3 gears icon.
     - Click the WiFi icon.
@@ -22,31 +22,31 @@ _Neptune Apex_
     - If its default. The login will be username: admin, password: 1234.
     - Verify this works by going to http://your_ip_address_here in your web browser and testing the login.
 
-Download & Unpack Instructions:
+#### Download & Unpack Instructions:
 ```
 cd /tmp
 wget http://github.com/rest_of_url_to_file_.linux-amd64.tar.gz
 tar -xvzf file_name_.linux-amd64.tar.gz
 ```
 
-Neptune Exporter Installation Instructions:
+#### Neptune Exporter Installation Instructions:
 ```
 cd /tmp/neptune_exporter_vX
 ./install_neptune_exporter.sh
 ```
 
-Manage Configurations:
+### Manage Configurations:
 
-Fusion_:
+#### Fusion_:
     Configuration File: /etc/neptune_exporter/configuration/fusion.yml
  
-Apex:
+#### Apex:
     Configuration File: /etc/neptune_exporter/configuration/apex.yml
     You can add, remove, modify the apex_auths as long as its in Yaml format.
     If you add, remove, modify any of the apex_auths (outside of the username/password), you most likely need to update the prometheus.yml file as well.
 
 ### _Other App Install Scripts_
-Prometheus
+#### Prometheus
 This installer script should only be used for fresh installations of Prometheus.
 It will generate a custom prometheus.yml file that Prometheus needs to collect data from Fusion and your Apex.
 
@@ -57,7 +57,7 @@ cd /tmp/neptune_exporter_vX
 sudo ./install_prometheus.sh
 ```
 
-Grafana Installation Instructions:
+#### Grafana Installation Instructions:
 This installer script should only be used for fresh installations of Grafana.
 Warning: Continue at your own risk. Especially if you have Grafana installed already.
 ```
