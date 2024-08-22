@@ -7,13 +7,13 @@ Python Versions Verified: Python 3.9.18
 
 Before getting started your going to need collect some information. Youll be asked for it later.
 
-[Neptune Fusion]
+_Neptune Fusion_
  - Your username & password for Fusion. Verify they work by logging into https://apexfusion.com/login
  - All Apex IDs of your Apex devices.
     - Once logged into Fusion. Go to https://apexfusion.com/apex to show all your Apex devices.
     - Click on the first Apex device. You will notice the URL will change. Copy everything after the last slash. This is the Apex ID. Repeat this process if you have multiple Apex devices.
 
-[Neptune Apex]
+_Neptune Apex_
  - Your Apex IP Adress. Easiest way of getting this is to use the Fusion App.
     - In the App. Click on the 3 gears icon.
     - Click the WiFi icon.
