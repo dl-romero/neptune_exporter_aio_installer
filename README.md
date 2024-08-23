@@ -44,9 +44,9 @@ Prometheus = http://<hostname/ipaddress>:9090 unless you change the port to some
 Neptune Exporter: http://<hostname/ipaddress>:5006<BR>
 
 #### Troubleshooting
-If you notice as "server misbehaving" message. 
+If you notice as "server misbehaving" message like the one below
 ```
-Get "http://pikachu.local:5006/metrics/apex?auth_module=default&target=192.168.1.12": dial tcp: lookup pikachu.local on 192.168.1.1:53: server misbehaving
+Get .......... tcp: lookup pikachu.local on 192.168.1.1:53: server misbehaving
 ```
 Check your "/etc/hosts file."
 ```
