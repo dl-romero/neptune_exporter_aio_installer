@@ -1,8 +1,7 @@
 # Neptune Exporter
 ### Export Apex / Fusion monitoring metrics for Prometheus.
 
-This exporter has been tested on CentOS 7 and Rocky 9.<br>
-
+This exporter has been tested on fresh installs of CentOS 7 and Rocky 9.<br>
 Python Versions Verified: Python 3.9.18
 
 Before getting started you should collect some information and have it ready. You'll be asked for it later if using the installer scripts.
@@ -22,17 +21,21 @@ Before getting started you should collect some information and have it ready. Yo
     - If its default. The login will be username: admin, password: 1234.
     - Verify this works by going to http://your_ip_address_here in your web browser and testing the login.
 
-#### Download & Unpack Instructions:
+#### Neptune Exporter, Prometheus & Grafana Installation Instructions:
 ```
 cd /tmp
-wget http://github.com/rest_of_url_to_file_.linux-amd64.tar.gz
-tar -xvzf file_name_.linux-amd64.tar.gz
-```
-
-#### Neptune Exporter Installation Instructions:
-```
-cd /tmp/neptune_exporter_vX
-./install_neptune_exporter.sh
+wget http://github.com/neptune_exporter.beta.linux-amd64.tar.gz
+tar -xvzf neptune_exporter.beta.linux-amd64.tar.gz
+mv neptune_exporter.beta.linux-amd64 neptune_exporter
+sudo yum install -y python3-pip
+cd /tmp/neptune_exporter
+pip3 install -r requirements.txt
+python3 config_builder.py
+chmod 777 *.sh
+sudo ./install_grafana.sh
+sudo ./install_neptune_exporter.sh
+sudo ./instal_prometheus.sh
+sudo firewall-cmd --premanent --add-port={9090,3000,5006}/{tcp,udp}
 ```
 
 ### Manage Configurations:
@@ -41,39 +44,15 @@ Configuration File: /etc/neptune_exporter/configuration/fusion.yml<BR>
 You can add, remove, modify the apex_systems as long as its in Yaml format.<BR>
 If you add, remove, modify any of the apex_systems (outside of the username/password), you most likely need to update the prometheus.yml file as well.<BR>
 <BR>
-Sample: [fusion.yml](https://github.com/dl-romero/neptune_exporter/blob/main/apps/neptune_exporter/configuration/fusion.yml) 
+Sample: [fusion.yml](https://github.com/dl-romero/neptune_exporter/blob/main/documentation/fusion.yml) 
  
 #### Apex:
 Configuration File: /etc/neptune_exporter/configuration/apex.yml<BR>
 You can add, remove, modify the apex_auths as long as its in Yaml format.<BR>
 If you add, remove, modify any of the apex_auths (outside of the username/password), you most likely need to update the prometheus.yml file as well.<BR>
 <BR>
-Sample: [apex.yml](https://github.com/dl-romero/neptune_exporter/blob/main/apps/neptune_exporter/configuration/apex.yml) 
+Sample: [apex.yml](https://github.com/dl-romero/neptune_exporter/blob/main/documentation/apex.yml) 
 
 #### Prometheus:
 Configuration File: /etc/prometheus/prometheus.yml<BR>
-To scrape metrics from your Apex(s) directly and or for from Fusion you will need to add the job into your Prometheus Scrape Configs in the prometheus.yml.<BR>
-<BR>
-Sample: [prometheus.yml](https://github.com/dl-romero/neptune_exporter/blob/main/apps/prometheus/prometheus.yml) 
-
-### _Other App Install Scripts_
-NOTE: These scripts were written for those who: 1. Do not have the respective app currently installed, 2. Have no familiarity installing and or configuring these apps and just want to get things up and running.<BR>
-#### Prometheus
-This installer script should only be used for fresh installations of Prometheus.
-It will generate a custom prometheus.yml file that Prometheus needs to collect data from Fusion and your Apex.<BR>
-<BR>
-Warning: Continue at your own risk. Especially if you have Prometheus installed already.
-Installation Instructions:
-```
-cd /tmp/neptune_exporter_vX
-sudo ./install_prometheus.sh
-```
-
-#### Grafana Installation Instructions:
-This installer script should only be used for fresh installations of Grafana.<BR>
-<BR>
-Warning: Continue at your own risk. Especially if you have Grafana installed already.
-```
-cd /tmp/neptune_exporter_vX
-sudo ./install_grafana.sh
-```
+Sample: [apex.yml](https://github.com/dl-romero/neptune_exporter/blob/main/documentation/prometheus.yml) 
