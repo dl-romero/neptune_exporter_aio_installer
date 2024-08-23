@@ -17,11 +17,6 @@ sudo cp -r prometheus/consoles /etc/prometheus
 sudo cp -r prometheus/console_libraries /etc/prometheus
 sudo chown -R prometheus:prometheus /etc/prometheus/consoles
 sudo chown -R prometheus:prometheus /etc/prometheus/console_libraries
-sudo sed -i -e "s/<YOUR LINUX HOSTNAME HERE>/$(hostname)/g" prometheus.yml
-read -p "Enter the IP Address of your APEX device (You can add more manually later.): " apex_ip
-sudo sed -i -e "s/<APEX IP ADDRESS GOES HERE>/$(apex_ip)/g" prometheus.yml
-read -p "Enter the ID of your APEX device in FUSION (You can add more manually later.): " fusion_id
-sudo sed -i -e "s/<APEX IP ADDRESS GOES HERE>/$(fusion_id)/g" prometheus.yml
 sudo cp -rf prometheus.yml /etc/prometheus/prometheus.yml
 sudo chown prometheus:prometheus /etc/prometheus/prometheus.yml
 sudo cp prometheus.service /etc/systemd/system/

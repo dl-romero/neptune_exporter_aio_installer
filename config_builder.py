@@ -2,7 +2,7 @@ import os
 import subprocess
 import socket
 import yaml
-import platform
+from sys import platform
 
 def clear_screen():
     os.system('cls' if os.name=='nt' else 'clear')
@@ -15,14 +15,22 @@ class ConfigBuilder:
         self.prom_tools = str(os.path.dirname(__file__)) + "/apps/prometheus/"
 
     def main_menu(self):
+        clear_screen()
         print("-----------------------------------------------------------")
-        print("This tool will build your configuration files for the Neptune Apex, Neptune Fusion, and Prometheus.")
-        print("It is meant for fresh installations only. Use at your own risk.")
+        print("This tool will help:")
+        print(" - Build your configuration files for the Neptune Exporter and Prometheus.")
+        print(" - Install the Neptune Exporter, Prometheus and Grafana.")
+        print("")
+        print("It is meant for fresh installations only and for those who not necessarily tech savy.")
+        print("That said. Use at your own risk.")
         print("-----------------------------------------------------------")
         print("")
         print("1. Build Apex configuration file.")
         print("2. Build Fusion configuration file.")
         print("3. Build Prometheus configuration file.")
+        print("4. Install Neptune Exporter.")
+        print("5. Install Prometheus.")
+        print("6. Install Grafana.")
         print("")
         menu_selection = None
         while menu_selection not in [1, 2, 3]:
@@ -33,6 +41,12 @@ class ConfigBuilder:
                 self.build_fusion_menu()
             elif menu_selection == 3:
                 self.build_prometheus_menu()
+            elif menu_selection == 4:
+                self.install_neptune_exporter()
+            elif menu_selection == 5:
+                self.install_prometheus()
+            elif menu_selection == 6:
+                self.install_grafana()
             else:
                 print("Please enter a valid number.")
                 menu_selection == None
@@ -343,9 +357,8 @@ class ConfigBuilder:
                 print("Your prometheus.yml file updates are complete")
                 print("Validating with Promtool")
                 print("......")
-
-                promtool_validation = subprocess.run(["cd", self.prom_tools, "./promtool_darwin", "check","config", self.default_prometheus], 
-                               shell=True)
+                subprocess.run(["unzip", self.prom_tools + "promtool.zip", "-d", self.prom_tools + "promtool.zip"], shell=True)
+                promtool_validation = subprocess.run(["cd", self.prom_tools, "./promtool", "check","config", self.default_prometheus], shell=True)
                 if promtool_validation.returncode == 0:
                     print("......Promtool validation: Successful")
                 else:
@@ -361,6 +374,57 @@ class ConfigBuilder:
             else:
                 print("Please enter a valid number.")
                 menu_selection == None
+
+    def install_neptune_exporter(self):
+        clear_screen()
+        print("-----------------------------------------------------------")
+        print("Install Neptune Exporter")
+        print("-----------------------------------------------------------")
+        print("")
+        continue_install_neptune_exporter = input("Confirming - Do you want to install the Neptune Exporter (Yes / No)? ")
+        while str(continue_install_neptune_exporter).lower() not in ["yes", "y", "no", "n"]:
+            print("Please enter Yes or No.")
+            continue_install_neptune_exporter =input("Confirming - Do you want to install the Neptune Exporter (Yes / No)? ")
+        if str(continue_install_neptune_exporter).lower() in ["yes", "y"]:
+            subprocess.run(["echo", "LOGIN_PASS", "|", "sudo", "-S", "./install_neptune_exporter.sh"], shell=True)
+        if str(continue_install_neptune_exporter).lower() in ["no", "n"]:
+            print("")
+            print("You have answered 'No'. Press Enter to return to the main menu.")
+            self.main_menu()
+
+    def install_prometheus(self):
+        clear_screen()
+        print("-----------------------------------------------------------")
+        print("Install Prometheus")
+        print("-----------------------------------------------------------")
+        print("")
+        continue_install_prometheus = input("Confirming - Do you want to install Prometheus (Yes / No)? ")
+        while str(continue_install_prometheus).lower() not in ["yes", "y", "no", "n"]:
+            print("Please enter Yes or No.")
+            continue_install_prometheus =input("Confirming - Do you want to install the Prometheus (Yes / No)? ")
+        if str(continue_install_prometheus).lower() in ["yes", "y"]:
+            subprocess.run(["echo", "LOGIN_PASS", "|", "sudo", "-S", "./install_prometheus.sh"], shell=True)
+        if str(continue_install_prometheus).lower() in ["no", "n"]:
+            print("")
+            print("You have answered 'No'. Press Enter to return to the main menu.")
+            self.main_menu()
+
+    def install_grafana(self):
+        clear_screen()
+        print("-----------------------------------------------------------")
+        print("Install Grafana")
+        print("-----------------------------------------------------------")
+        print("")
+        continue_install_grafana = input("Confirming - Do you want to install Grafana (Yes / No)? ")
+        while str(continue_install_grafana ).lower() not in ["yes", "y", "no", "n"]:
+            print("Please enter Yes or No.")
+            continue_install_grafana  =input("Confirming - Do you want to install the Grafana? ")
+        if str(continue_install_grafana ).lower() in ["yes", "y"]:
+            subprocess.run(["echo", "LOGIN_PASS", "|", "sudo", "-S", "./install_grafana.sh"], shell=True)
+        if str(continue_install_grafana ).lower() in ["no", "n"]:
+            print("")
+            print("You have answered 'No'. Press Enter to return to the main menu.")
+            self.main_menu()
 
 if __name__ == "__main__":
     ConfigBuilder().main_menu()
