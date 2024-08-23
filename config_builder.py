@@ -1,4 +1,5 @@
 import os
+import socket
 import yaml
 
 def clear_screen():
@@ -258,10 +259,33 @@ class ConfigBuilder:
                 print("")
                 with open(self.default_prometheus) as f:
                     prometheus_cfg = yaml.load(f, Loader=yaml.FullLoader)
+                neptun_apex_jobs = {
+                    'job_name': 'neptune_apex', 
+                    'static_configs': [{'targets': []}],
+                    'metrics_path': '/metrics/apex', 
+                    'params': {'auth_module': ['default']},
+                    'relabel_configs': [
+                        {'source_labels': ['__address__'],
+                         'target_label': '__param_target'},
+                        {'source_labels': ['__param_target'],
+                         'target_label': 'instance'},
+                        {'target_label': '__address__',
+                         'replacement': '{}:5006'.format(socket.gethostname())}]}
+                
+                neptinue_fusion_jobs = {
+                    'job_name': 'neptune_fusion',
+                    'static_configs': [{'targets': []}], 
+                    'metrics_path': '/metrics/fusion', 
+                    'params': {'data_max_age': [300]}, 
+                    'relabel_configs': [
+                        {'source_labels': ['__param_target'], 
+                            'target_label': 'instance'}, 
+                        {'source_labels': ['__address__'], 
+                            'target_label': '__param_fusion_apex_id'}, 
+                        {'target_label': '__address__', 
+                            'replacement': '{}:5006'.format(socket.gethostname())}]}
 
-                for job_id in prometheus_cfg["scrape_configs"]:
-                    if job_id["job_name"] == "neptune_apex":
-                        print(job_id["static_configs"][0]["targets"])
+                
                 print("")
                 ##### 
                 print("")
