@@ -1,6 +1,8 @@
 import os
+import subprocess
 import socket
 import yaml
+import platform
 
 def clear_screen():
     os.system('cls' if os.name=='nt' else 'clear')
@@ -10,6 +12,7 @@ class ConfigBuilder:
         self.default_neptune_apex = str(os.path.dirname(__file__)) + "/apps/neptune_exporter/configuration/apex.yml"
         self.default_neptune_fusion = str(os.path.dirname(__file__)) +"/apps/neptune_exporter/configuration/fusion.yml"
         self.default_prometheus = str(os.path.dirname(__file__)) + "/apps/prometheus/prometheus.yml"
+        self.prom_tools = str(os.path.dirname(__file__)) + "/apps/prometheus/"
 
     def main_menu(self):
         print("-----------------------------------------------------------")
@@ -49,7 +52,7 @@ class ConfigBuilder:
             if menu_selection == 1:
                 self.build_apex_1()
             elif menu_selection == 2:
-                self.build_prometheus_menu()
+                self.main_menu()
             else:
                 print("Please enter a valid number.")
                 menu_selection == None
@@ -115,12 +118,10 @@ class ConfigBuilder:
                 apex_auths = apex_cfg["apex_auths"] 
                 f.close()
                 print("")
-                print("Your apex.yml file updates are complete and your Apex Authenicaiton modules are {}".format(list(apex_auths.keys())))
+                print("Your apex.yml file updates are complete and your Apex Authenticaiton Modules are {}".format(list(apex_auths.keys())))
                 print("")
-                input("Press any key to return to the menu.")
+                input("Press Enter to return to the menu.")
                 self.build_apex_1()
-
-                    
             elif menu_selection == 2:
                 # Go Back
                 self.build_apex_menu()
@@ -176,11 +177,11 @@ class ConfigBuilder:
                     print("")
                     print("Current Fusion Apex IDs Stored: {}".format(current_fusion_id_list))
                     print("")
-                    fusion_id_to_configure = input("Enter Fusion Apex ID #{}? ".format(apex_fusion_id_to_configure + 1))
+                    fusion_id_to_configure = input("Enter Fusion Apex ID #{}: ".format(apex_fusion_id_to_configure + 1))
                     while str(fusion_id_to_configure).replace(" ", "") in ["", "None", None]:
-                        fusion_id_to_configure = input("The Fusion Apex ID cannot be blank/empty. Please try again.\nEnter Fusion Apex ID #{}? ".format(apex_fusion_id_to_configure + 1))
+                        fusion_id_to_configure = input("The Fusion Apex ID cannot be blank/empty. Please try again.\nEnter Fusion Apex ID #{}: ".format(apex_fusion_id_to_configure + 1))
                     while fusion_id_to_configure in current_fusion_id_list:
-                        fusion_id_to_configure = input("The Fusion Apex ID is already in use. Please try another name.\Enter Fusion Apex ID #{}? ".format(apex_fusion_id_to_configure + 1))
+                        fusion_id_to_configure = input("The Fusion Apex ID is already in use. Please try another name.\Enter Fusion Apex ID #{}: ".format(apex_fusion_id_to_configure + 1))
                     
                     # Getting the auth username
                     fusion_id_username_to_configure = input("What is the username for the Fusion Apex ID '{}'? ".format(fusion_id_to_configure))
@@ -210,7 +211,7 @@ class ConfigBuilder:
                 print("")
                 print("Your fusion.yml file updates are complete and your Fusion Apex IDs are {}".format(current_fusion_id_list))
                 print("")
-                input("Press any key to return to the menu.")
+                input("Press Enter to return to the menu.")
                 self.build_fusion_1()
                     
             elif menu_selection == 2:
@@ -239,6 +240,7 @@ class ConfigBuilder:
             else:
                 print("Please enter a valid number.")
                 menu_selection == None
+
     def build_prometheus_1(self):
         clear_screen()
         print("-----------------------------------------------------------")
@@ -256,14 +258,34 @@ class ConfigBuilder:
         while menu_selection not in [1, 2]:
             menu_selection = int(input("Option Number: "))
             if menu_selection == 1:
-                print("")
-                with open(self.default_prometheus) as f:
-                    prometheus_cfg = yaml.load(f, Loader=yaml.FullLoader)
-                neptun_apex_jobs = {
-                    'job_name': 'neptune_apex', 
-                    'static_configs': [{'targets': []}],
+                clear_screen()
+                print("-----------------------------------------------------------")
+                print("Configuring Apex Devices.")
+                print("Have your Neptune Apex Auth Modules and associated IP Addresses ready.")
+                print("-----------------------------------------------------------")
+                total_apex_auths = int(input("How many of Neptune Apex Authenticaiton Modules do you have? "))
+                while total_apex_auths <= 0:
+                    print("Please enter a number greater than zero.")
+                    total_apex_auths = int(input("How many of Neptune Apex Authenticaiton Modules do you have? "))
+                for apex_auth_to_configure in range(total_apex_auths):
+                    name_of_apex_auth = input("Enter the name of Neptune Apex Authenticaiton Module #{} :".format(apex_auth_to_configure + 1))
+                    ip_address_list = []
+                    total_ips_for_auth = int(input("How many of IP Addresses use '{}'? ".format(name_of_apex_auth)))
+                    while total_ips_for_auth <= 0:
+                        print("Please enter a number greater than zero.")
+                        total_ips_for_auth = int(input("How many of IP Addresses use '{}'? ".format(name_of_apex_auth)))
+                    for ip_address_number in range(total_ips_for_auth):
+                        ip_address_to_add = input("Enter IP Address #{}: ".format(ip_address_number + 1))
+                        while str(ip_address_to_add).replace(" ", "") in ["", "None", None]:
+                            ip_address_to_add = input("The IP Address cannot be blank/empty. Please try again.\nEnter IP Address #{}: ".format(ip_address_number + 1))
+                        ip_address_list.append(ip_address_to_add)
+                    with open(self.default_prometheus) as f:
+                        prometheus_cfg = yaml.load(f, Loader=yaml.FullLoader)
+                    neptun_apex_job = {
+                    'job_name': 'neptune_apex_{}'.format(apex_auth_to_configure + 1), 
+                    'static_configs': [{'targets': ip_address_list}],
                     'metrics_path': '/metrics/apex', 
-                    'params': {'auth_module': ['default']},
+                    'params': {'auth_module': [name_of_apex_auth]},
                     'relabel_configs': [
                         {'source_labels': ['__address__'],
                          'target_label': '__param_target'},
@@ -271,10 +293,39 @@ class ConfigBuilder:
                          'target_label': 'instance'},
                         {'target_label': '__address__',
                          'replacement': '{}:5006'.format(socket.gethostname())}]}
-                
-                neptinue_fusion_jobs = {
-                    'job_name': 'neptune_fusion',
-                    'static_configs': [{'targets': []}], 
+                    prometheus_cfg["scrape_configs"].append(neptun_apex_job)
+                    with open(self.default_prometheus, "w") as f:
+                        prometheus_cfg = yaml.dump(prometheus_cfg, stream=f, default_flow_style=False, sort_keys=False)
+                clear_screen()
+                print("-----------------------------------------------------------")
+                print("Configuring Fusion Apex IDs.")
+                print("Have your IDs ready.")
+                print("-----------------------------------------------------------")
+                print("")
+                with open(self.default_prometheus) as f:
+                    prometheus_cfg = yaml.load(f, Loader=yaml.FullLoader)
+                total_apex_fusion_ids_to_configure = int(input("How many of Fusion Apex IDs do you have? "))
+                while total_apex_fusion_ids_to_configure <= 0:
+                    print("Please enter a number greater than zero.")
+                    total_apex_fusion_ids_to_configure = int(input("How many of Fusion Apex IDs do you have? "))
+                neptune_fusion_ids = []
+                for apex_fusion_id_to_configure in range(total_apex_fusion_ids_to_configure):
+                    with open(self.default_prometheus) as f:
+                        prometheus_cfg = yaml.load(f, Loader=yaml.FullLoader)
+                    print("")
+                    print("Current Fusion Apex IDs Stored: {}".format(neptune_fusion_ids))
+                    print("")
+                    fusion_id_to_configure = input("Enter Fusion Apex ID #{}: ".format(apex_fusion_id_to_configure + 1))
+                    while str(fusion_id_to_configure).replace(" ", "") in ["", "None", None]:
+                        fusion_id_to_configure = input("The Fusion Apex ID cannot be blank/empty. Please try again.\nEnter Fusion Apex ID #{}: ".format(apex_fusion_id_to_configure + 1))
+                    while fusion_id_to_configure in neptune_fusion_ids:
+                        fusion_id_to_configure = input("The Fusion Apex ID is already in use. Please try another name.\Enter Fusion Apex ID #{}: ".format(apex_fusion_id_to_configure + 1))
+                    neptune_fusion_ids.append(fusion_id_to_configure)
+                    print("")
+                    print("Fusion Apex ID: '{}' has been added to your prometheus.yml".format(fusion_id_to_configure))
+                neptinue_fusion_job = {
+                    'job_name': 'neptune_fusion_2',
+                    'static_configs': [{'targets': neptune_fusion_ids}], 
                     'metrics_path': '/metrics/fusion', 
                     'params': {'data_max_age': [300]}, 
                     'relabel_configs': [
@@ -284,19 +335,29 @@ class ConfigBuilder:
                             'target_label': '__param_fusion_apex_id'}, 
                         {'target_label': '__address__', 
                             'replacement': '{}:5006'.format(socket.gethostname())}]}
-
-                
-                print("")
-                ##### 
+                prometheus_cfg["scrape_configs"].append(neptinue_fusion_job)
+                with open(self.default_prometheus, "w") as f:
+                    prometheus_cfg = yaml.dump(prometheus_cfg, stream=f, default_flow_style=False, sort_keys=False)
+                f.close()
                 print("")
                 print("Your prometheus.yml file updates are complete")
+                print("Validating with Promtool")
+                print("......")
+
+                promtool_validation = subprocess.run(["cd", self.prom_tools, "./promtool_darwin", "check","config", self.default_prometheus], 
+                               shell=True)
+                if promtool_validation.returncode == 0:
+                    print("......Promtool validation: Successful")
+                else:
+                    print("......Promtool validation: Failed.")
+                    print("You will need to update the prometheus.yml manually.")
+
                 print("")
-                input("Press any key to return to the menu.")
-                self.build_fusion_1()
-                    
+                input("Press Enter to return to the menu.")
+                self.build_prometheus_1()
             elif menu_selection == 2:
                 # Go Back
-                self.build_fusion_menu()
+                self.build_prometheus_menu()
             else:
                 print("Please enter a valid number.")
                 menu_selection == None
