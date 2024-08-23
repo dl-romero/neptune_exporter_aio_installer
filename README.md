@@ -1,7 +1,7 @@
 # Neptune Exporter
 ### Export Apex / Fusion monitoring metrics for Prometheus.
 
-This exporter has been tested on fresh installs of CentOS 7 and Rocky 9.<br>
+This exporter has been tested on fresh install of Rocky 9.<br>
 Python Versions Verified: Python 3.9.18
 
 Before getting started you should collect some information and have it ready. You'll be asked for it later if using the installer scripts.
