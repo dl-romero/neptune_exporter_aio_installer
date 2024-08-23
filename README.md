@@ -21,7 +21,7 @@ Before getting started you should collect some information and have it ready. Yo
     - If its default. The login will be username: admin, password: 1234.
     - Verify this works by going to http://your_ip_address_here in your web browser and testing the login.
 
-#### Neptune Exporter, Prometheus & Grafana Installation Instructions:
+#### Getting Started - Neptune Exporter, Prometheus & Grafana Installation Instructions:
 ```
 cd /tmp
 wget http://github.com/neptune_exporter.beta.linux-amd64.tar.gz
@@ -36,6 +36,30 @@ sudo ./install_grafana.sh
 sudo ./install_neptune_exporter.sh
 sudo ./instal_prometheus.sh
 sudo firewall-cmd --premanent --add-port={9090,3000,5006}/{tcp,udp}
+```
+
+#### Check Services
+Grafana = http://<hostname/ipaddress>:3000
+Prometheus = http://<hostname/ipaddress>:9090 unless you change the port to something else.
+Neptune Exporter: http://<hostname/ipaddress>:5006
+
+#### Troubleshooting
+If you notice as "server misbehaving" message. 
+```
+Get "http://pikachu.local:5006/metrics/apex?auth_module=default&target=192.168.1.12": dial tcp: lookup pikachu.local on 192.168.1.1:53: server misbehaving
+```
+Check your "/etc/hosts file."
+```
+[me@pikachu ~]$ cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+192.168.1.53 pikachu.local
+```
+You should see 3 lines. If not youll need to add it.
+```
+sudo vi /etc/hosts
+press insert key
+got to bottom of the file. Enter the ip address of the server hosting the Neptune Exporter a space and the hostname.
 ```
 
 ### Manage Configurations:
