@@ -1,7 +1,7 @@
 #!/bin/bash
 cd apps/prometheus
 sudo yum update -y
-sudo yum install wget -y
+sudo yum install -y wget -y
 wget https://github.com/prometheus/prometheus/releases/download/v2.54.0/prometheus-2.54.0.linux-amd64.tar.gz
 sudo useradd --no-create-home --shell /bin/false prometheus
 sudo mkdir /etc/prometheus /var/lib/prometheus

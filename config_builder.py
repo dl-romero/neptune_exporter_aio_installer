@@ -2,7 +2,6 @@ import os
 import subprocess
 import socket
 import yaml
-from sys import platform
 
 def clear_screen():
     os.system('cls' if os.name=='nt' else 'clear')
