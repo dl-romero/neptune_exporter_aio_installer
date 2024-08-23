@@ -39,9 +39,9 @@ sudo firewall-cmd --premanent --add-port={9090,3000,5006}/{tcp,udp}
 ```
 
 #### Check Services
-Grafana = http://<hostname/ipaddress>:3000
-Prometheus = http://<hostname/ipaddress>:9090 unless you change the port to something else.
-Neptune Exporter: http://<hostname/ipaddress>:5006
+Grafana = http://<hostname/ipaddress>:3000<BR>
+Prometheus = http://<hostname/ipaddress>:9090 unless you change the port to something else.<BR>
+Neptune Exporter: http://<hostname/ipaddress>:5006<BR>
 
 #### Troubleshooting
 If you notice as "server misbehaving" message. 
