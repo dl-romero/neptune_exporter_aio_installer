@@ -28,9 +28,6 @@ class ConfigBuilder:
         print("1. Build Apex configuration file.")
         print("2. Build Fusion configuration file.")
         print("3. Build Prometheus configuration file.")
-        print("4. Install Neptune Exporter.")
-        print("5. Install Prometheus.")
-        print("6. Install Grafana.")
         print("")
         menu_selection = None
         while menu_selection not in [1, 2, 3]:
@@ -187,7 +184,10 @@ class ConfigBuilder:
                         fusion_cfg = yaml.load(f, Loader=yaml.FullLoader)
 
                     fusion_ids = fusion_cfg["fusion"]["apex_systems"]
-                    current_fusion_id_list = list(fusion_ids.keys())
+                    try:
+                        current_fusion_id_list = list(fusion_ids.keys())
+                    except:
+                        current_fusion_id_list = ""
                     print("")
                     print("Current Fusion Apex IDs Stored: {}".format(current_fusion_id_list))
                     print("")
@@ -258,9 +258,10 @@ class ConfigBuilder:
     def build_prometheus_1(self):
         clear_screen()
         print("-----------------------------------------------------------")
-        print("Configure prometheus.yml file for fresh installation")
+        print("Configure Prometheus Service File and the prometheus.yml file for fresh installation")
         print("")
         print("Agenda:")
+        print(" - Configure Prometheus Service")
         print(" - Add Apex devices.")
         print(" - Add Fusion Apex IDs.")
         print("-----------------------------------------------------------")
@@ -272,6 +273,28 @@ class ConfigBuilder:
         while menu_selection not in [1, 2]:
             menu_selection = int(input("Option Number: "))
             if menu_selection == 1:
+                clear_screen()
+                print("-----------------------------------------------------------")
+                print("Configuring Prometheus Service File.")
+                print("-----------------------------------------------------------")
+                print("")
+                print("Note: Some Linux distros come with Cockpit installed that uses port 9090.")
+                print("This can cause a problem with Prometheus because its default is also 9090.")
+                print("Unsure? No problem lets check real quick. Try going to https://{}:9090.".format(socket.gethostname()))
+                print("If a website loads up or you plan to install Cockpit choose another port for example: 5050. Just note down what you choose")
+                print("Youll need this info later when connecting Grafana and Prometheus.")
+                print("")
+                prometheus_port = int(input("What port number should Prometheus use (default is 9090, enter 9090 to keep it default)? "))
+                while prometheus_port <= 0:
+                    print("Please enter a number greater than zero.")
+                    prometheus_port = int(input("What port number should Prometheus use (default is 9090, enter 9090 to keep it default)? "))
+                
+                with open("apps/prometheus/prometheus.service", 'r') as service_file:
+                    service_file_content = service_file.read()
+                    service_file_content = service_file_content.replace("<PORT>", str(prometheus_port))
+                with open("apps/prometheus/prometheus.service", 'w') as service_file:
+                    service_file.write(service_file_content)
+
                 clear_screen()
                 print("-----------------------------------------------------------")
                 print("Configuring Apex Devices.")
@@ -357,7 +380,7 @@ class ConfigBuilder:
                 print("Your prometheus.yml file updates are complete")
                 print("Validating with Promtool")
                 print("......")
-                subprocess.run(["unzip", self.prom_tools + "promtool.zip", "-d", self.prom_tools + "promtool.zip"], shell=True)
+                subprocess.run(["unzip", self.prom_tools + "promtool.zip"], shell=True)
                 promtool_validation = subprocess.run(["cd", self.prom_tools, "./promtool", "check","config", self.default_prometheus], shell=True)
                 if promtool_validation.returncode == 0:
                     print("......Promtool validation: Successful")
@@ -374,57 +397,6 @@ class ConfigBuilder:
             else:
                 print("Please enter a valid number.")
                 menu_selection == None
-
-    def install_neptune_exporter(self):
-        clear_screen()
-        print("-----------------------------------------------------------")
-        print("Install Neptune Exporter")
-        print("-----------------------------------------------------------")
-        print("")
-        continue_install_neptune_exporter = input("Confirming - Do you want to install the Neptune Exporter (Yes / No)? ")
-        while str(continue_install_neptune_exporter).lower() not in ["yes", "y", "no", "n"]:
-            print("Please enter Yes or No.")
-            continue_install_neptune_exporter =input("Confirming - Do you want to install the Neptune Exporter (Yes / No)? ")
-        if str(continue_install_neptune_exporter).lower() in ["yes", "y"]:
-            subprocess.run(["echo", "LOGIN_PASS", "|", "sudo", "-S", "./install_neptune_exporter.sh"], shell=True)
-        if str(continue_install_neptune_exporter).lower() in ["no", "n"]:
-            print("")
-            print("You have answered 'No'. Press Enter to return to the main menu.")
-            self.main_menu()
-
-    def install_prometheus(self):
-        clear_screen()
-        print("-----------------------------------------------------------")
-        print("Install Prometheus")
-        print("-----------------------------------------------------------")
-        print("")
-        continue_install_prometheus = input("Confirming - Do you want to install Prometheus (Yes / No)? ")
-        while str(continue_install_prometheus).lower() not in ["yes", "y", "no", "n"]:
-            print("Please enter Yes or No.")
-            continue_install_prometheus =input("Confirming - Do you want to install the Prometheus (Yes / No)? ")
-        if str(continue_install_prometheus).lower() in ["yes", "y"]:
-            subprocess.run(["echo", "LOGIN_PASS", "|", "sudo", "-S", "./install_prometheus.sh"], shell=True)
-        if str(continue_install_prometheus).lower() in ["no", "n"]:
-            print("")
-            print("You have answered 'No'. Press Enter to return to the main menu.")
-            self.main_menu()
-
-    def install_grafana(self):
-        clear_screen()
-        print("-----------------------------------------------------------")
-        print("Install Grafana")
-        print("-----------------------------------------------------------")
-        print("")
-        continue_install_grafana = input("Confirming - Do you want to install Grafana (Yes / No)? ")
-        while str(continue_install_grafana ).lower() not in ["yes", "y", "no", "n"]:
-            print("Please enter Yes or No.")
-            continue_install_grafana  =input("Confirming - Do you want to install the Grafana? ")
-        if str(continue_install_grafana ).lower() in ["yes", "y"]:
-            subprocess.run(["echo", "LOGIN_PASS", "|", "sudo", "-S", "./install_grafana.sh"], shell=True)
-        if str(continue_install_grafana ).lower() in ["no", "n"]:
-            print("")
-            print("You have answered 'No'. Press Enter to return to the main menu.")
-            self.main_menu()
 
 if __name__ == "__main__":
     ConfigBuilder().main_menu()

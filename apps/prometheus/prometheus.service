@@ -12,7 +12,8 @@ ExecStart=/usr/local/bin/prometheus \
 --storage.tsdb.path /var/lib/prometheus/ \
 --web.console.templates=/etc/prometheus/consoles \
 --web.console.libraries=/etc/prometheus/console_libraries \
---storage.tsdb.retention.time=1y
+--storage.tsdb.retention.time=1y \
+--web.listen-address=:<PORT>
 
 [Install]
 WantedBy=multi-user.target
