@@ -1,5 +1,5 @@
 #!/bin/bash
-read -p "What is your current linux username? " current_linux_user
+read -p "What is your current (non Root) linux username? " current_linux_user
 sudo mkdir /etc/neptune_exporter
 sudo cp -R apps/neptune_exporter/* /etc/neptune_exporter
 sudo cp apps/neptune_exporter/neptune_exporter.service /etc/systemd/system
