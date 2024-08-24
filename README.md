@@ -1,6 +1,8 @@
 # Neptune Exporter
 ### Export Apex / Fusion monitoring metrics for Prometheus.
 
+Background: This was a project meant for personal use, but 
+
 This exporter has been tested on fresh install of Rocky 9.<br>
 Python Versions Verified: Python 3.9.18
 
@@ -39,7 +41,7 @@ sudo firewall-cmd --premanent --add-port={9090,3000,5006}/{tcp,udp}
 ```
 
 #### Check Services
-Grafana = http://<hostname/ipaddress>:3000<BR>
+Grafana = http://<hostname/ipaddress>:3000 (Default Login = admin for both user and password)<BR>
 Prometheus = http://<hostname/ipaddress>:9090 unless you change the port to something else.<BR>
 Neptune Exporter: http://<hostname/ipaddress>:5006<BR>
 
