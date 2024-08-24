@@ -45,6 +45,16 @@ Grafana = http://<hostname/ipaddress>:3000 (Default Login = admin for both user 
 Prometheus = http://<hostname/ipaddress>:9090 unless you change the port to something else.<BR>
 Neptune Exporter: http://<hostname/ipaddress>:5006<BR>
 
+#### Connecting Grafana to Prometheus
+1. Log into Grafana.
+2. Click the Menu button on the top left.
+3. Hover over Connections and click on Add New Connection.
+4. Search for Prometheus and click on it.
+5. Click the Add New Data Source button on the top right.
+6. Name it "prometheus" without the quotes.
+7. Add the Prometheus URL. This should be http://<hostname/ipaddress>:9090 unless you change the port to something else.
+8. Scroll down and click Save and Test.
+
 #### Troubleshooting
 If you notice as "server misbehaving" message like the one below
 ```
