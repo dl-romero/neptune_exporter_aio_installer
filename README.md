@@ -29,7 +29,6 @@ cd /tmp
 wget https://github.com/dl-romero/neptune_exporter/releases/download/v0.1-beta/neptune_exporter.beta.linux-amd64.tgz
 
 tar -xvzf neptune_exporter.beta.linux-amd64.tar.gz
-mv neptune_exporter.beta.linux-amd64 neptune_exporter
 sudo yum install -y python3-pip
 cd /tmp/neptune_exporter
 pip3 install -r requirements.txt
