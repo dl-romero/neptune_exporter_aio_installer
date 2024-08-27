@@ -26,7 +26,7 @@ Before getting started you should collect some information and have it ready. Yo
 #### Getting Started - Neptune Exporter, Prometheus & Grafana Installation Instructions:
 ```
 cd /tmp
-wget https://github.com/dl-romero/neptune_exporter/releases/download/v0.1-beta/neptune_exporter.beta.linux-amd64.tgz
+wget https://github.com/dl-romero/neptune_exporter_aio_installer/releases/download/v0.1-beta/neptune_exporter.beta.linux-amd64.tgz
 
 tar -xvzf neptune_exporter.beta.linux-amd64.tar.gz
 sudo yum install -y python3-pip
